@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class App {
+public class Consultas {
     public static void main(String[] args) {
 
         Connection conn = null;
