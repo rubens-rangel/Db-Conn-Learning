@@ -18,7 +18,8 @@ public class Insertions {
                     "INSERT INTO seller "
                             + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
                             + "VALUES "
-                            + "(?, ?, ?, ?, ?)");
+                            + "(?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, "Carl Purple");
             st.setString(2, "carl@gmail.com");
@@ -28,7 +29,15 @@ public class Insertions {
 
             int rowsAffected = st.executeUpdate();
 
-            System.out.println("done! rows affected: " + rowsAffected);
+            if(rowsAffected >0){
+               ResultSet rs = st.getGeneratedKeys();
+               while (rs.next()) {
+               int id = rs.getInt(1);
+                   System.out.println("Done! Id =" + id);
+               }
+            }else {
+                System.out.println("NO rown Affected");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,7 +46,6 @@ public class Insertions {
         } finally {
             DB.closeStatement(st);
             DB.closeConnection();
-
         }
     }
 }
